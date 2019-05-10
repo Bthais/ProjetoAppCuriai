@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="8dp"
-        android:textSize="12sp"
         android:text="@string/entrar" />
 
         <View
@@ -65,7 +64,6 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="12sp"
         android:text="@string/recuperar" />
 
         <View
