@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Curiai</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="avaliar">Avalie-nos</string>
+    <string name="ajuda">Central de ajuda</string>
+    <string name="termo_uso">Termos de uso</string>
+    <string name="polit_priv">Política de privacidade</string>
+    <string name="sair">Sair</string>
+    <string name="home">Home</string>
+    <string name="perfil">Perfil</string>
+    <string name="Categoriaevento">Categorias</string>
+    <string name="evento">Eventos</string>
+    <string name="explorar">Explorar</string>
+
+    <string name="login">Entre</string>
+    <string name="cadastro">Cadastre-se</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="entrar">Entrar</string>
+    <string name="recuperar">Recuperar senha</string>
+    <string name="email">E-mail*</string>
+    <string name="senha">Senha*</string>
+    <string name="repetir_senha">Repita senha*</string>
+
+</resources>

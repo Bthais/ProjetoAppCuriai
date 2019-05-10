@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "467829858552",
+    "firebase_url": "https://projetoappcuriai.firebaseio.com",
+    "project_id": "projetoappcuriai",
+    "storage_bucket": "projetoappcuriai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467829858552:android:0e48d3bbf545e6b6",
+        "android_client_info": {
+          "package_name": "com.example.projetoappcuriai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467829858552-80mq1ohhovm4vkqggvkrq8ui6mjb7jgs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projetoappcuriai",
+            "certificate_hash": "8e82ceb4877de7a10fe686de0450022c53f9743a"
+          }
+        },
+        {
+          "client_id": "467829858552-j83pt97qguggd15mlpgsb6ke54plbmh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPig2nJXQu9qHJQQgtjSyDbS73nG_WEns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467829858552-j83pt97qguggd15mlpgsb6ke54plbmh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
