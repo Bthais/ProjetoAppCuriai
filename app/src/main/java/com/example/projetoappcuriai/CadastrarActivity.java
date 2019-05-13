@@ -1,5 +1,6 @@
 package com.example.projetoappcuriai;
 
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import android.widget.Toast;
 
 import com.example.projetoappcuriai.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class CadastrarActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -72,14 +76,14 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
 
             if (senha.contentEquals(confirmaSenha)) {
 
-                if(verfificarInternet()){
+                if(Util.verfificarInternet(this)){
 
-                    criarUsuario(email, senha);
+                    criarUsuario( email, senha);
+
                 }else{
 
                     Toast.makeText(getBaseContext(), "Erro - Verifique sua conexão com a internet", Toast.LENGTH_LONG).show();
                 }
-
 
             } else {
                 Toast.makeText(getBaseContext(), "Erro - Senhas diferentes", Toast.LENGTH_LONG).show();
@@ -88,65 +92,28 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    private void criarUsuario(String email, String senha) {
+        private void criarUsuario (String email, String senha){
+            auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-                if (task.isSuccessful()) {
+                        startActivity(new Intent(getBaseContext(), MainActivityLogado.class));
+                        Toast.makeText(getBaseContext(), "Cadastrado efetuado com sucesso", Toast.LENGTH_LONG).show();
+                        finish();
 
-                    Toast.makeText(getBaseContext(), "Cadastrado efetuado com sucesso", Toast.LENGTH_LONG).show();
+                    } else {
 
-                } else {
+                        String resposta = task.getException().toString();
+                        Util.opcoesErro(getBaseContext(), resposta);
+                    }
 
-                    String resposta = task.getException().toString();
-                    opcoesErro(resposta);
                 }
-
-            }
-        });
-    }
-
-    private void opcoesErro(String resposta) {
-
-        if (resposta.contains("least 6 characters")) {
-
-            Toast.makeText(getBaseContext(), "A senha deve conter pelo menos 6 caracteres", Toast.LENGTH_LONG).show();
-
-        } else if (resposta.contains("address is badly")) {
-
-            Toast.makeText(getBaseContext(), "Digite um e-mail válido", Toast.LENGTH_LONG).show();
-
-        }else if(resposta.contains("address is already")){
-
-            Toast.makeText(getBaseContext(), "E-mail já cadastrado", Toast.LENGTH_LONG).show();
-
-        }else if(resposta.contains("interrupted connection")){
-
-            Toast.makeText(getBaseContext(), "Sem conexão com o Servidor", Toast.LENGTH_LONG).show();
-
-        }else if(resposta.contains("")){
-
-            Toast.makeText(getBaseContext(), resposta, Toast.LENGTH_LONG).show();
+            });
         }
 
-    }
-
-    private boolean verfificarInternet(){
-
-        ConnectivityManager conexao = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo informacao = (conexao.getActiveNetworkInfo());
-
-        if(informacao != null && informacao.isConnected()){
-
-            return true;
-        }else {
-
-            return false;
-        }
-    }
 }
 
 

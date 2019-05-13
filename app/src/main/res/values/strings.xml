@@ -20,7 +20,7 @@
     <string name="cadastro">Cadastre-se</string>
     <string name="cancelar">Cancelar</string>
     <string name="entrar">Entrar</string>
-    <string name="recuperar">Recuperar senha</string>
+    <string name="recuperar">Esqueci a senha</string>
     <string name="email">E-mail*</string>
     <string name="senha">Senha*</string>
     <string name="repetir_senha">Repita senha*</string>

@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,12 +55,51 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.button_Recuperar:
 
+                recuperarSenha();
+
                 break;
         }
 
     }
 
+    private void recuperarSenha(){
+
+        String email = editText_emailLogin.getText().toString().trim();
+
+        if (email.isEmpty()) {
+
+            Toast.makeText(getBaseContext(), "Seu e-mail deve ser informado para recuperação de senha", Toast.LENGTH_LONG).show();
+        }else{
+
+            enviarEmail(email);
+        }
+
+    }
+
+    private void enviarEmail(String email){
+
+        auth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                Toast.makeText(getBaseContext(),"Uma mesnsagem com um link de redefinição de senha foi enviada para o seu e-mail",
+                        Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                String erro = e.toString();
+                Util.opcoesErro(getBaseContext(),erro);
+
+            }
+        });
+
+    }
+
     private void loginEmail() {
+
         String email = editText_emailLogin.getText().toString().trim();
         String senha = editText_senhaLogin.getText().toString().trim();
 
@@ -67,7 +108,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(getBaseContext(), "Preencha os campos obrigatórios", Toast.LENGTH_LONG).show();
         } else {
 
-            if(verfificarInternet()){
+            if(Util.verfificarInternet(this)){
 
                 confirmarLoginEmail(email, senha);
             }else{
@@ -78,19 +119,6 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private boolean verfificarInternet(){
-
-        ConnectivityManager conexao = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo informacao = (conexao.getActiveNetworkInfo());
-
-        if(informacao != null && informacao.isConnected()){
-
-            return true;
-        }else {
-
-            return false;
-        }
-    }
 
     private void confirmarLoginEmail(String email, String senha){
 
@@ -100,13 +128,13 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
                 if (task.isSuccessful()) {
 
-                    startActivity(new Intent(getBaseContext(),MainActivity.class));
+                    startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                     Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
 
                     String resposta = task.getException().toString();
-                    opcoesErro(resposta);
+                    Util.opcoesErro(getBaseContext(), resposta);
                    // Toast.makeText(getBaseContext(), "Erro ao logar usuário", Toast.LENGTH_LONG).show();
 
                 }
@@ -115,31 +143,5 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    private void opcoesErro(String resposta) {
 
-        if (resposta.contains("least 6 characters")) {
-
-            Toast.makeText(getBaseContext(), "A senha deve conter pelo menos 6 caracteres", Toast.LENGTH_LONG).show();
-
-        } else if (resposta.contains("address is badly")) {
-
-            Toast.makeText(getBaseContext(), "Digite um e-mail válido", Toast.LENGTH_LONG).show();
-
-        }else if(resposta.contains("interrupted connection")){
-
-            Toast.makeText(getBaseContext(), "Sem conexão com o Servidor", Toast.LENGTH_LONG).show();
-
-        }else if(resposta.contains("password is invalid")){
-
-            Toast.makeText(getBaseContext(), "Senha inválida", Toast.LENGTH_LONG).show();
-
-        } else if(resposta.contains("There is no user")){
-
-            Toast.makeText(getBaseContext(), "E-mail não cadastrado", Toast.LENGTH_LONG).show();
-
-        } else{
-            Toast.makeText(getBaseContext(), resposta, Toast.LENGTH_LONG).show();
-        }
-
-    }
 }
