@@ -1,10 +1,15 @@
 package com.example.projetoappcuriai;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +24,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -38,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -55,10 +64,10 @@ public class MainActivity extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
 
-        estadoAutenticacao();
+        servicoAutenticacao();
     }
-
-    private void estadoAutenticacao(){
+//-----------------------------------------SERVIÇOS LOGIN-----------------------------------------------------
+    private void servicoAutenticacao(){
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -68,7 +77,6 @@ public class MainActivity extends AppCompatActivity
 
                 if(user!=null){
 
-                    Toast.makeText(getBaseContext(),"usuario"+ " "+user.getEmail()+" "+"está logado" , Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                     finish();
                     //aqui posso colocar o que o usuario pode fazer se ele estiver logado
@@ -147,7 +155,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+//-----------------------------------TRATAMENTO DE CLICKS--------------------------------------------
     @Override
     public void onClick(View v) {
 
@@ -155,18 +163,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.button_Login:
 
-                user = auth.getCurrentUser();
-
-                if(user == null){
-
-                    startActivity(new Intent(this, LoginEmailActivity.class));
-                    finish();
-
-                }else{
-
-                    startActivity(new Intent(this, MainActivityLogado.class));
-                    finish();
-                }
+                signInEmail();
 
                 break;
 
@@ -179,7 +176,24 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+//------------------------------------METODOS DE LOGIN---------------------------------------------------
+    private void signInEmail(){
 
+        user = auth.getCurrentUser();
+
+        if(user == null){
+
+            startActivity(new Intent(this, LoginEmailActivity.class));
+
+        }else{
+
+            startActivity(new Intent(this, MainActivityLogado.class));
+            finish();
+        }
+
+    }
+
+    //-------------------------------METODOS DA ACTIVITY---------------------------------------------------
     @Override
     protected void onStart() {
         super.onStart();

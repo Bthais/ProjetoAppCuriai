@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,17 +30,21 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Arrays;
 
 public class LoginEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editText_emailLogin, editText_senhaLogin;
     private Button button_entrarLogin;
-    private CardView cardView_recuperarSenha;
-    private CardView cardView_loginGoogle;
+    private CardView cardView_recuperarSenha, cardView_loginFacebook, cardView_loginGoogle;
     private FirebaseAuth auth;
     private GoogleSignInClient googleSignInClient;
+
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,17 +55,50 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         editText_senhaLogin = (EditText) findViewById(R.id.editText_SenhaLogin);
 
         button_entrarLogin = (Button) findViewById(R.id.button_EntrarLogin);
+
         cardView_recuperarSenha = (CardView) findViewById(R.id.cardView_RecuperarSenha);
+        cardView_loginFacebook = (CardView) findViewById(R.id.cardView_LoginFacebook);
         cardView_loginGoogle = (CardView) findViewById(R.id.cardView_LoginGoogle);
 
-
         button_entrarLogin.setOnClickListener(this);
+
         cardView_recuperarSenha.setOnClickListener(this);
+        cardView_loginFacebook.setOnClickListener(this);
         cardView_loginGoogle.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
 
         servicosGoogle();
+        servicosFacebook();
+
+    }
+
+
+//-------------------------------------SERVIÇOS LOGIN--------------------------------------------------------
+
+    private void servicosFacebook(){
+
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                adicionarContaFacebookaoFirebase(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+
+                Toast.makeText(getBaseContext(),"Cancelado",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+                Toast.makeText(getBaseContext(),"Erro ao logar com Facebook",Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -70,9 +113,17 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+
+//-------------------------------------TRATAMENTO DE CLICKS------------------------------------------------
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.cardView_LoginFacebook:
+
+                signInFacebook();
+
+                break;
 
             case R.id.cardView_LoginGoogle:
 
@@ -94,6 +145,14 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+
+//----------------------------------METODOS DE LOGIN-----------------------------------------------------
+
+    private void signInFacebook(){
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","email"));
+    }
+
     private void signInGoogle(){
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -107,12 +166,39 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
             //ja existe alguem conectado pelo google
 
-            Toast.makeText(getBaseContext(),"Já logado",Toast.LENGTH_LONG).show();
             startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
             finish();
 
         }
     }
+
+
+//-----------------------------------------AUTENTICACAO NO FIREBASE----------------------------------------
+
+    private void adicionarContaFacebookaoFirebase(AccessToken token) {
+
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+                            finish();
+
+                        } else {
+
+                            Toast.makeText(getBaseContext(),"Erro ao logar com o Facebook",Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                });
+    }
+
 
     private void adicionarContaGoogleaoFirebase (GoogleSignInAccount acct) {
 
@@ -124,6 +210,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                             finish();
 
@@ -138,8 +225,12 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                 });
     }
 
+
+    //---------------------------------METODOS DA ACTIVITY-------------------------------------------------
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 555){
@@ -162,6 +253,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    //--------------------------------------METODOS DE LOGIN COM EMAIL E SENHA--------------------------------
     private void recuperarSenha(){
 
         String email = editText_emailLogin.getText().toString().trim();
@@ -220,28 +312,26 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    private void confirmarLoginEmail(String email, String senha){
+    private void confirmarLoginEmail(String email, String senha) {
 
         auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-
-                    startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                     Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getBaseContext(), MainActivityLogado.class));
                     finish();
                 } else {
 
                     String resposta = task.getException().toString();
                     Util.opcoesErro(getBaseContext(), resposta);
-                   // Toast.makeText(getBaseContext(), "Erro ao logar usuário", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getBaseContext(), "Erro ao logar usuário", Toast.LENGTH_LONG).show();
 
                 }
 
             }
         });
+
     }
-
-
 }
