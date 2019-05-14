@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
     private EditText editText_emailLogin, editText_senhaLogin;
     private Button button_entrarLogin, button_recuperarSenha;
+    private CardView cardView_RecuperarSenha;
     private FirebaseAuth auth;
 
     @Override
@@ -34,10 +36,12 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         editText_senhaLogin = (EditText) findViewById(R.id.editText_SenhaLogin);
 
         button_entrarLogin = (Button) findViewById(R.id.button_EntrarLogin);
-        button_recuperarSenha = (Button) findViewById(R.id.button_Recuperar);
+        cardView_RecuperarSenha = (CardView) findViewById(R.id.cardView_RecuperarSenha);
+       // button_recuperarSenha = (Button) findViewById(R.id.button_Recuperar);
 
         button_entrarLogin.setOnClickListener(this);
-        button_recuperarSenha.setOnClickListener(this);
+        //button_recuperarSenha.setOnClickListener(this);
+        cardView_RecuperarSenha.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
 
@@ -53,7 +57,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
                 break;
 
-            case R.id.button_Recuperar:
+            case R.id.cardView_RecuperarSenha:
 
                 recuperarSenha();
 

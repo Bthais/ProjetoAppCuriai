@@ -46,9 +46,13 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+
     @Override
     public void onClick(View v) {
+
+
         switch (v.getId()) {
+
 
             case R.id.button_cadastrarUsuario:
 
@@ -93,6 +97,7 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
 
 
         private void criarUsuario (String email, String senha){
+
             auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
                 @Override
@@ -113,6 +118,7 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
                 }
             });
         }
+
 
 }
 

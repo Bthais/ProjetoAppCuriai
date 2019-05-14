@@ -159,12 +159,9 @@ public class MainActivity extends AppCompatActivity
 
                 user = auth.getCurrentUser();
 
-
-
                 if(user == null){
 
                     startActivity(new Intent(this, LoginEmailActivity.class));
-
 
                 }else{
 

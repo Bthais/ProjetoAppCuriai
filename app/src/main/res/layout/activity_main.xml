@@ -39,7 +39,9 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="500dp"
+            android:textAllCaps="false"
             android:text="@string/login" />
 
         <TextView
@@ -48,14 +50,16 @@
             android:layout_marginStart="3dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="500dp"
-            android:text="OU"
-            android:textSize="16sp" />
+            android:text="ou"
+            android:textSize="14sp" />
         <Button
             android:id="@+id/button_Cadastrar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="500dp"
+            android:textAllCaps="false"
             android:text="@string/cadastro" />
 
         <View
