@@ -13,19 +13,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editText_emailLogin, editText_senhaLogin;
-    private Button button_entrarLogin, button_recuperarSenha;
-    private CardView cardView_RecuperarSenha;
+    private Button button_entrarLogin;
+    private CardView cardView_recuperarSenha;
+    private CardView cardView_loginGoogle;
     private FirebaseAuth auth;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,14 +45,28 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         editText_senhaLogin = (EditText) findViewById(R.id.editText_SenhaLogin);
 
         button_entrarLogin = (Button) findViewById(R.id.button_EntrarLogin);
-        cardView_RecuperarSenha = (CardView) findViewById(R.id.cardView_RecuperarSenha);
-       // button_recuperarSenha = (Button) findViewById(R.id.button_Recuperar);
+        cardView_recuperarSenha = (CardView) findViewById(R.id.cardView_RecuperarSenha);
+        cardView_loginGoogle = (CardView) findViewById(R.id.cardView_LoginGoogle);
+
 
         button_entrarLogin.setOnClickListener(this);
-        //button_recuperarSenha.setOnClickListener(this);
-        cardView_RecuperarSenha.setOnClickListener(this);
+        cardView_recuperarSenha.setOnClickListener(this);
+        cardView_loginGoogle.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
+
+        servicosGoogle();
+
+    }
+
+    private void servicosGoogle(){
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this,gso);
 
     }
 
@@ -51,6 +74,11 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
 
+            case R.id.cardView_LoginGoogle:
+
+                signInGoogle();
+
+                break;
             case R.id.button_EntrarLogin:
 
                 loginEmail();
@@ -64,6 +92,74 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
 
+    }
+
+    private void signInGoogle(){
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account == null){
+
+            Intent intent = googleSignInClient.getSignInIntent();
+            startActivityForResult(intent, 555);
+
+        }else{
+
+            //ja existe alguem conectado pelo google
+
+            Toast.makeText(getBaseContext(),"Já logado",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+            finish();
+
+        }
+    }
+
+    private void adicionarContaGoogleaoFirebase (GoogleSignInAccount acct) {
+
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+                            finish();
+
+                        } else {
+
+                            Toast.makeText(getBaseContext(),"Erro ao criar conta Google",Toast.LENGTH_LONG).show();
+
+                        }
+
+
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 555){
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                adicionarContaGoogleaoFirebase(account);
+
+
+            }catch (ApiException e){
+
+                Toast.makeText(getBaseContext(),"Erro ao logar com conta do Google",Toast.LENGTH_LONG).show();
+
+            }
+
+        }
     }
 
     private void recuperarSenha(){

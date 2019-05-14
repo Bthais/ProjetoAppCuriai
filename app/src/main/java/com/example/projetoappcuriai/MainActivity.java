@@ -68,12 +68,13 @@ public class MainActivity extends AppCompatActivity
 
                 if(user!=null){
 
-                    Toast.makeText(getBaseContext(),"usuario" + user.getEmail() + "está logado" , Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(getBaseContext(),"usuario"+ " "+user.getEmail()+" "+"está logado" , Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+                    finish();
                     //aqui posso colocar o que o usuario pode fazer se ele estiver logado
                 }else{
 
-                    Toast.makeText(getBaseContext(),"usuario" + "Não está logado" , Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getBaseContext(),"usuario" + "Não está logado" , Toast.LENGTH_LONG).show();
 
                 }
 
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
 
         } else if (id == R.id.nav_categorias) {
 
@@ -138,11 +140,7 @@ public class MainActivity extends AppCompatActivity
 
 
         }
-        else if (id == R.id.nav_sair) {
 
-            FirebaseAuth.getInstance().signOut();
-            finish();
-        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -162,6 +160,7 @@ public class MainActivity extends AppCompatActivity
                 if(user == null){
 
                     startActivity(new Intent(this, LoginEmailActivity.class));
+                    finish();
 
                 }else{
 
