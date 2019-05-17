@@ -7,6 +7,8 @@
     <color name="colorBranco">#fff</color>
     <color name="colorCreme">#FAFAFA</color>
     <color name="colorBlack">#000</color>
+    <color name="colorGhostWhite">#E6E6FA</color>
+
 
 </resources>
 
