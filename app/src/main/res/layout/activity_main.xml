@@ -28,45 +28,111 @@
         android:orientation="horizontal"
         tools:context=".MainActivity">
 
+//.......................mudando botao entrar e o botao cadastrar...............
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_Login"
+            android:layout_width="170dp"
+            android:layout_height="70dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="7dp"
+            android:layout_marginTop="500dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorDarkCyan"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorCreme"
+                    android:text="@string/login"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="1dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/button_Login"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="500dp"
-            android:textAllCaps="false"
-            android:text="@string/login" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginLeft="3dp"
-            android:layout_marginTop="500dp"
+            android:layout_marginTop="520dp"
             android:text="ou"
-            android:textSize="14sp" />
-        <Button
-            android:id="@+id/button_Cadastrar"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="500dp"
-            android:textAllCaps="false"
-            android:text="@string/cadastro" />
-
+            android:textSize="18sp" />
         <View
-            android:layout_width="2dp"
-            android:layout_height="1dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
 
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_Cadastrar"
+            android:layout_width="170dp"
+            android:layout_height="70dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="7dp"
+            app:cardBackgroundColor="@color/colorDarkCyan"
+            android:layout_marginTop="500dp"
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorCreme"
+                    android:text="@string/cadastro"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+//.......................................................................
 
 
     </LinearLayout>

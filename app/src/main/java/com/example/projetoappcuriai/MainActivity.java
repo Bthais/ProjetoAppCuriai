@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private Button button_login, button_cadastrar;
+    private CardView  cardView_login, cardView_cadastrar;
     private FirebaseAuth auth;
     private FirebaseUser user;
 
@@ -59,11 +60,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        button_login = (Button) findViewById(R.id.button_Login);
-        button_cadastrar = (Button) findViewById(R.id.button_Cadastrar);
+        cardView_login = (CardView) findViewById(R.id.cardView_Login);
+        cardView_cadastrar = (CardView) findViewById(R.id.cardView_Cadastrar);
 
-        button_login.setOnClickListener(this);
-        button_cadastrar.setOnClickListener(this);
+        cardView_login.setOnClickListener(this);
+        cardView_cadastrar.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
 
@@ -164,13 +165,13 @@ public class MainActivity extends AppCompatActivity
 
         switch (v.getId()){
 
-            case R.id.button_Login:
+            case R.id.cardView_Login:
 
                 signInEmail();
 
                 break;
 
-            case R.id.button_Cadastrar:
+            case R.id.cardView_Cadastrar:
 
                 startActivity(new Intent(this, CadastrarActivity.class));
 

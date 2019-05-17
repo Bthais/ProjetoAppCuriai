@@ -22,6 +22,7 @@
     <string name="loginComGoogle">Google</string>
     <string name="loginComFacebook">Facebook</string>
     <string name="cancelar">Cancelar</string>
+    <string name="cadastrar">Cadastrar</string>
     <string name="recuperar">Esqueceu sua senha?</string>
     <string name="email">E-mail*</string>
     <string name="senha">Senha*</string>

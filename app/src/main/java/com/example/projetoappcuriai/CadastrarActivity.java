@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class CadastrarActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editText_Email, editText_Senha, editText_SenhaRepetir;
-    private Button button_Cadastrar, button_Cancelar;
+    private CardView cardView_Cadastrar, cardView_Cancelar;
     private FirebaseAuth auth;
 
     @Override
@@ -36,11 +37,13 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
         editText_Senha = (EditText) findViewById(R.id.editText_SenhaCadastro);
         editText_SenhaRepetir = (EditText) findViewById(R.id.editText_RepetirSenhaCadastro);
 
-        button_Cadastrar = (Button) findViewById(R.id.button_cadastrarUsuario);
-        button_Cancelar = (Button) findViewById(R.id.button_cancelar);
+        cardView_Cadastrar= (CardView) findViewById(R.id.cardView_cadastrarUsuario);
+        cardView_Cancelar= (CardView) findViewById(R.id.cardView_cancelar);
 
 
-        button_Cadastrar.setOnClickListener(this);
+       cardView_Cadastrar.setOnClickListener(this);
+       cardView_Cancelar.setOnClickListener(this);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -54,9 +57,16 @@ public class CadastrarActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
 
 
-            case R.id.button_cadastrarUsuario:
+            case R.id.cardView_cadastrarUsuario:
 
                 cadastrar();
+
+                break;
+
+            case R.id.cardView_cancelar:
+
+                startActivity(new Intent(getBaseContext(),MainActivity.class));
+                finish();
 
                 break;
 

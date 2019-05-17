@@ -166,7 +166,7 @@
         </LinearLayout>
 
 
-        //****************************************************************
+        //************************implementação da divisoria****************************************
 
         <LinearLayout
             android:layout_width="match_parent"
