@@ -27,6 +27,9 @@
     <string name="senha">Senha*</string>
     <string name="repetir_senha">Repita senha*</string>
 
+    <string name="textPerfil">Entre com sua conta do aplicativo para ter acesso às suas informações pessoais </string>
+
+
     <string name="facebook_app_id">1001651176712867</string>
     <string name="fb_login_protocol_scheme">fb1001651176712867</string>
 

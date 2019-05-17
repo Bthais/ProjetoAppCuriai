@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth auth;
     private FirebaseUser user;
 
+
     private  FirebaseAuth.AuthStateListener authStateListener;
 
 
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

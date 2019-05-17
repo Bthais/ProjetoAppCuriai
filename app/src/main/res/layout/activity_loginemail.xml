@@ -9,9 +9,13 @@
     tools:context=".LoginEmailActivity">
 
 
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +25,27 @@
         android:layout_gravity="center"
         android:gravity="center">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text=" "/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:text="@string/textPerfil"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text=" "/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,48 +54,55 @@
         android:layout_gravity="center"
         android:gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/email"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/email"/>
 
-    <EditText
-        android:id="@+id/editText_EmailLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Insira seu e-mail"/>
+        <EditText
+            android:id="@+id/editText_EmailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Insira seu e-mail"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/senha"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/senha"/>
 
-    <EditText
-        android:id="@+id/editText_SenhaLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Insira sua senha"/>
+        <EditText
+            android:id="@+id/editText_SenhaLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Insira sua senha"/>
 
 
 
     </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView_RecuperarSenha"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        app:cardElevation="0dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:layout_marginTop="0dp"
-        app:cardUseCompatPadding="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginStart="100dp"
-        app:cardBackgroundColor="@color/colorCreme"
-        android:clickable="true"
-        android:focusable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_RecuperarSenha"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            app:cardElevation="0dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginTop="0dp"
+            app:cardUseCompatPadding="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            app:cardBackgroundColor="@color/colorCreme"
+            android:clickable="true"
+            android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,37 +123,45 @@
 
     </android.support.v7.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView_EntrarLogin"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                app:cardElevation="0dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginTop="0dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp"
+                app:cardBackgroundColor="@color/colorCreme"
+                android:clickable="true"
+                android:focusable="true">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/button_EntrarLogin"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:textAllCaps="false"
-        android:text="@string/entrar" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entrar"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
 
-    </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+
+
+
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView_LoginFacebook"

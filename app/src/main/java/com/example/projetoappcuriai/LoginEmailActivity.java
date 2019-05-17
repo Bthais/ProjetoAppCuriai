@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -39,8 +40,7 @@ import java.util.Arrays;
 public class LoginEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editText_emailLogin, editText_senhaLogin;
-    private Button button_entrarLogin;
-    private CardView cardView_recuperarSenha, cardView_loginFacebook, cardView_loginGoogle;
+    private CardView cardView_recuperarSenha, cardView_loginFacebook, cardView_loginGoogle, cardView_entrarLogin;
     private FirebaseAuth auth;
     private GoogleSignInClient googleSignInClient;
 
@@ -51,18 +51,21 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginemail);
 
+
+        getSupportActionBar().setTitle("Perfil");
+
         editText_emailLogin = (EditText) findViewById(R.id.editText_EmailLogin);
         editText_senhaLogin = (EditText) findViewById(R.id.editText_SenhaLogin);
 
-        button_entrarLogin = (Button) findViewById(R.id.button_EntrarLogin);
 
         cardView_recuperarSenha = (CardView) findViewById(R.id.cardView_RecuperarSenha);
+        cardView_entrarLogin = (CardView) findViewById(R.id.cardView_EntrarLogin);
         cardView_loginFacebook = (CardView) findViewById(R.id.cardView_LoginFacebook);
         cardView_loginGoogle = (CardView) findViewById(R.id.cardView_LoginGoogle);
 
-        button_entrarLogin.setOnClickListener(this);
 
         cardView_recuperarSenha.setOnClickListener(this);
+        cardView_entrarLogin.setOnClickListener(this);
         cardView_loginFacebook.setOnClickListener(this);
         cardView_loginGoogle.setOnClickListener(this);
 
@@ -130,7 +133,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                 signInGoogle();
 
                 break;
-            case R.id.button_EntrarLogin:
+            case R.id.cardView_EntrarLogin:
 
                 loginEmail();
 
