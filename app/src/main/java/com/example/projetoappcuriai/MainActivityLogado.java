@@ -111,6 +111,7 @@ public class MainActivityLogado extends AppCompatActivity
         }else if (id == R.id.nav_sair) {
 
             FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             //finish();
 
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -121,10 +122,9 @@ public class MainActivityLogado extends AppCompatActivity
             googleSignInClient = GoogleSignIn.getClient(this,gso);
             googleSignInClient.signOut();
 
-            LoginManager.getInstance().logOut();
-
-            startActivity(new Intent(this, MainActivity.class));
             finish();
+            startActivity(new Intent(getBaseContext(), MainActivity.class));
+
         }
 
 

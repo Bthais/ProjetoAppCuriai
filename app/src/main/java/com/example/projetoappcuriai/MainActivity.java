@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
     private FirebaseUser user;
 
 
-    private  FirebaseAuth.AuthStateListener authStateListener;
 
 
     @Override
@@ -68,32 +67,27 @@ public class MainActivity extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
 
-        servicoAutenticacao();
+
+        verificarLogin();
+
+
+    }
+
+    private void verificarLogin(){
+
+        FirebaseUser user = auth.getCurrentUser();
+
+        if(user != null){
+
+            Log.d("testeCursoI M","Usuario Logado");
+
+            startActivity(new Intent(this, MainActivityLogado.class));
+            finish();
+
+        }
     }
 //-----------------------------------------SERVIÇOS LOGIN-----------------------------------------------------
-    private void servicoAutenticacao(){
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if(user!=null){
-
-                    startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
-                    finish();
-                    //aqui posso colocar o que o usuario pode fazer se ele estiver logado
-                }else{
-
-                   // Toast.makeText(getBaseContext(),"usuario" + "Não está logado" , Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        };
-    }
 
     @Override
     public void onBackPressed() {
@@ -183,13 +177,18 @@ public class MainActivity extends AppCompatActivity
 //------------------------------------METODOS DE LOGIN---------------------------------------------------
     private void signInEmail(){
 
-        user = auth.getCurrentUser();
+        FirebaseUser user = auth.getCurrentUser();
 
         if(user == null){
+
+            Log.d("testeCursoI M","Usuario Não Logado");
+
+            finish();
 
             startActivity(new Intent(this, LoginEmailActivity.class));
 
         }else{
+            Log.d("testeCursoI M","Usuario Logado");
 
             startActivity(new Intent(this, MainActivityLogado.class));
             finish();
@@ -197,21 +196,5 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //-------------------------------METODOS DA ACTIVITY---------------------------------------------------
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        auth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (authStateListener != null){
-
-            auth.removeAuthStateListener(authStateListener);
-        }
-    }
 }

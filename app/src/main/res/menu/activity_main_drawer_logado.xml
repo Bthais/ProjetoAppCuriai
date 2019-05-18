@@ -19,8 +19,8 @@
             android:icon="@drawable/ic_calendar_plus"
             android:title="@string/evento" />
 
-        <item android:title="Cetegoria"
-            app:showAsAction="never">
+        <item android:title="Categorias"
+            app:showAsAction="ifRoom">
             <menu>
 
                 <item android:title="Categorias"

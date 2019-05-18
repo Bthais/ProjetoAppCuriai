@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,6 +35,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
@@ -43,6 +46,9 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
     private CardView cardView_recuperarSenha, cardView_loginFacebook, cardView_loginGoogle, cardView_entrarLogin;
     private FirebaseAuth auth;
     private GoogleSignInClient googleSignInClient;
+
+    private  FirebaseAuth.AuthStateListener authStateListener;
+
 
     private CallbackManager callbackManager;
 
@@ -71,17 +77,52 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
         auth = FirebaseAuth.getInstance();
 
+        servicoAutenticacao();
+
         servicosGoogle();
         servicosFacebook();
+
 
     }
 
 
 //-------------------------------------SERVIÇOS LOGIN--------------------------------------------------------
 
+    private void servicoAutenticacao(){
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if(user!=null){
+
+                    Log.d("testeCursoI","Usuario Logado");
+                    startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+                    finish();
+                    //aqui posso colocar o que o usuario pode fazer se ele estiver logado
+                }else{
+
+                    Log.d("testeCursoI","Usuario Não Logado");
+
+                    // Toast.makeText(getBaseContext(),"usuario" + "Não está logado" , Toast.LENGTH_LONG).show();
+
+                }
+
+
+            }
+        };
+    }
+
+
+
     private void servicosFacebook(){
 
         callbackManager = CallbackManager.Factory.create();
+
+        //faz o app logar somente pela web inserindo o email e senha do facebook
+       // LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -99,7 +140,10 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onError(FacebookException error) {
 
-                Toast.makeText(getBaseContext(),"Erro ao logar com Facebook",Toast.LENGTH_LONG).show();
+                String resultado = error.getMessage();
+
+                Util.opcoesErro(getBaseContext(),resultado);
+
             }
         });
 
@@ -168,9 +212,9 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         }else{
 
             //ja existe alguem conectado pelo google
-
-            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
             finish();
+            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+
 
         }
     }
@@ -188,14 +232,17 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            Log.d("testeCursoI","Usuario Logado Face");
+
                             Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                             finish();
+                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+
 
                         } else {
 
-                            Toast.makeText(getBaseContext(),"Erro ao logar com o Facebook",Toast.LENGTH_LONG).show();
-
+                            String resultado = task.getException().toString();
+                            Util.opcoesErro(getBaseContext(),resultado);
                         }
 
                     }
@@ -214,13 +261,14 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                         if (task.isSuccessful()) {
 
                             Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                             finish();
+                            startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
+
 
                         } else {
 
-                            Toast.makeText(getBaseContext(),"Erro ao criar conta Google",Toast.LENGTH_LONG).show();
-
+                            String resultado = task.getException().toString();
+                            Util.opcoesErro(getBaseContext(),resultado);
                         }
 
 
@@ -230,6 +278,9 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
 
     //---------------------------------METODOS DA ACTIVITY-------------------------------------------------
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -249,12 +300,32 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
             }catch (ApiException e){
 
-                Toast.makeText(getBaseContext(),"Erro ao logar com conta do Google",Toast.LENGTH_LONG).show();
-
+                String resultado = e.getMessage();
+                Util.opcoesErro(getBaseContext(),resultado);
             }
 
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        auth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (authStateListener != null){
+
+            auth.removeAuthStateListener(authStateListener);
+        }
+    }
+
+
+
 
     //--------------------------------------METODOS DE LOGIN COM EMAIL E SENHA--------------------------------
     private void recuperarSenha(){
