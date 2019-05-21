@@ -9,6 +9,10 @@
     <color name="colorBlack">#000</color>
     <color name="colorGhostWhite">#E6E6FA</color>
     <color name="colorDarkCyan">#26a69a</color>
+    <color name="colorDividerColor">#80CBC4</color>
+    <color name="colorListItemTitle">#AAAAAA</color>
+    <color name="colorListGroupTitle">#808080</color>
+
 
 
 </resources>

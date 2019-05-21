@@ -98,13 +98,11 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
 
                 if(user!=null){
 
-                    Log.d("testeCursoI","Usuario Logado");
                     startActivity(new Intent(getBaseContext(),MainActivityLogado.class));
                     finish();
                     //aqui posso colocar o que o usuario pode fazer se ele estiver logado
                 }else{
 
-                    Log.d("testeCursoI","Usuario Não Logado");
 
                     // Toast.makeText(getBaseContext(),"usuario" + "Não está logado" , Toast.LENGTH_LONG).show();
 
@@ -122,7 +120,7 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
         callbackManager = CallbackManager.Factory.create();
 
         //faz o app logar somente pela web inserindo o email e senha do facebook
-       // LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
+        LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -232,7 +230,6 @@ public class LoginEmailActivity extends AppCompatActivity implements View.OnClic
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Log.d("testeCursoI","Usuario Logado Face");
 
                             Toast.makeText(getBaseContext(), "Usuário logado com sucesso", Toast.LENGTH_LONG).show();
                             finish();

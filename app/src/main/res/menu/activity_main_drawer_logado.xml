@@ -10,54 +10,70 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
-        <item
-            android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_perfil"
-            android:title="@string/perfil" />
-        <item
-            android:id="@+id/nav_eventos"
-            android:icon="@drawable/ic_calendar_plus"
-            android:title="@string/evento" />
-
-        <item android:title="Categorias"
-            app:showAsAction="ifRoom">
-            <menu>
-
-                <item android:title="Categorias"
-                    android:icon="@drawable/ic_calendar_plus"/>
-                <item
-                    android:id="@+id/nav_relig"
-                    android:icon="@drawable/ic_avaliacao"
-                    android:title="@string/avaliar" />
-                <item
-                    android:id="@+id/nav_cult"
-                    android:icon="@drawable/ic_central_ajuda"
-                    android:title="@string/ajuda" />
-
-                <item
-                    android:id="@+id/nav_palest"
-                    android:icon="@drawable/ic_termo_uso"
-                    android:title="@string/termo_uso" />
-                <item
-                    android:id="@+id/nav_shows"
-                    android:icon="@drawable/ic_politica_priv"
-                    android:title="@string/polit_priv" />
-                <item
-                    android:id="@+id/musc_bar"
-                    android:icon="@drawable/ic_sair"
-                    android:title="@string/sair" />
-
-            </menu>
-        </item>
 
         <item
             android:id="@+id/nav_explorar"
             android:icon="@drawable/ic_explorar"
             android:title="@string/explorar" />
 
+        <item android:title="@string/eventos"
+            android:id="@+id/nav_event"
+            android:icon="@drawable/ic_calendar_plus"/>
+
+        <item
+            android:id="@+id/nav_meuEvent"
+            android:title="@string/meusEvent"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_criarEvent"
+            android:title="@string/criarEvent"
+            android:visible="false"/>
+
+
+                <item android:title="@string/categorias"
+                      android:id="@+id/nav_categorias"
+                      android:icon="@drawable/list" />
+
+                <item
+                    android:id="@+id/nav_festas"
+                    android:title="@string/festas"
+                    android:icon="@drawable/party"
+                    android:visible="false"/>
+                <item
+                    android:id="@+id/nav_music"
+                    android:title="@string/musica"
+                    android:icon="@drawable/music_player"
+                    android:visible="false"/>
+                <item
+                    android:id="@+id/nav_aprender"
+                    android:title="@string/aprender"
+                    android:icon="@drawable/party"
+                    android:visible="false"/>
+
+                <item
+                    android:id="@+id/nav_negocios"
+                    android:title="@string/negocios"
+                    android:icon="@drawable/join"
+                    android:visible="false"/>
+                <item
+                    android:id="@+id/nav_cultura"
+                    android:title="@string/cultura"
+                    android:icon="@drawable/theatre_masks"
+                    android:visible="false"/>
+                 <item
+                    android:id="@+id/nav_bemEstar"
+                    android:title="@string/bemEstar"
+                     android:icon="@drawable/party"
+                     android:visible="false"/>
+
+
+
+
     </group>
 
-    <item android:title="Comunicação">
+
+    <item android:id="@+id/nav_com"
+        android:title="Comunicação">
         <menu>
             <item
                 android:id="@+id/nav_avaliacao"

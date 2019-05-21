@@ -4,6 +4,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="abrir">Abrir</string>
+    <string name="fechar">Fechar</string>
+    <string name="textDiv">Ou entre com</string>
 
     <string name="avaliar">Avalie-nos</string>
     <string name="ajuda">Central de ajuda</string>
@@ -12,8 +15,6 @@
     <string name="sair">Sair</string>
     <string name="home">Home</string>
     <string name="perfil">Perfil</string>
-    <string name="Categoriaevento">Categorias</string>
-    <string name="evento">Eventos</string>
     <string name="explorar">Explorar</string>
 
     <string name="login">Entre</string>
@@ -26,13 +27,25 @@
     <string name="recuperar">Esqueceu sua senha?</string>
     <string name="email">E-mail*</string>
     <string name="senha">Senha*</string>
-    <string name="repetir_senha">Repita senha*</string>
+    <string name="repetir_senha">Confirmar senha*</string>
 
     <string name="textPerfil">Entre com sua conta do aplicativo para ter acesso às suas informações pessoais </string>
-    <string name="textDiv">Ou entre com </string>
+
+    <string name="categorias">Categorias</string>
+    <string name="eventos">Eventos</string>
+    <string name="festas">Festas </string>
+    <string name="musica">Música ao vivo </string>
+    <string name="negocios">Negócios</string>
+    <string name="aprender">Aprender</string>
+    <string name="cultura">Cultura</string>
+    <string name="bemEstar">Bem estar</string>
+    <string name="meusEvent">Meus eventos</string>
+    <string name="criarEvent">Criar evento</string>
 
 
     <string name="facebook_app_id">1001651176712867</string>
     <string name="fb_login_protocol_scheme">fb1001651176712867</string>
+
+
 
 </resources>

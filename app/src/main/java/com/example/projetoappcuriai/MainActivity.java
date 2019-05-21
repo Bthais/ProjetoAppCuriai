@@ -125,29 +125,63 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        NavigationView nav= (NavigationView) findViewById(R.id.nav_view);
+        Menu me=nav.getMenu();
         int id = item.getItemId();
-
         if (id == R.id.nav_home) {
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
 
-        } else if (id == R.id.nav_categorias) {
+        }else if (id == R.id.nav_explorar) {
 
-        } else if (id == R.id.nav_explorar) {
+        } else if (id == R.id.nav_categorias) {
+            boolean bo=!me.findItem(R.id.nav_festas).isVisible();
+            //setting submenus visible state
+            me.findItem(R.id.nav_festas).setVisible(bo);
+            me.findItem(R.id.nav_music).setVisible(bo);
+            me.findItem(R.id.nav_aprender).setVisible(bo);
+            me.findItem(R.id.nav_negocios).setVisible(bo);
+            me.findItem(R.id.nav_cultura).setVisible(bo);
+            me.findItem(R.id.nav_bemEstar).setVisible(bo);
+
+            return true;
+        }else if (id == R.id.nav_festas) {
+
+        }else if (id == R.id.nav_music) {
+
+        } else if (id == R.id.nav_aprender) {
+
+        } else if (id == R.id.nav_negocios) {
+
+        } else if (id == R.id.nav_cultura) {
+
+        } else if (id == R.id.nav_bemEstar) {
+
+        } else  if (id == R.id.nav_event) {
+                boolean bo=!me.findItem(R.id.nav_meuEvent).isVisible();
+                //setting submenus visible state
+                me.findItem(R.id.nav_meuEvent).setVisible(bo);
+                me.findItem(R.id.nav_criarEvent).setVisible(bo);
+                return true;
+        } else if (id == R.id.nav_com) {
+
+            me.findItem(R.id.nav_avaliacao).setVisible(false);
+            me.findItem(R.id.nav_ajuda).setVisible(false);
+            me.findItem(R.id.nav_termo_uso).setVisible(false);
+            me.findItem(R.id.nav_privacidade).setVisible(false);
+            me.findItem(R.id.nav_sair).setVisible(false);
 
         } else if (id == R.id.nav_avaliacao) {
 
         } else if (id == R.id.nav_ajuda) {
 
-        } else if (id == R.id.nav_termo_uso) {
+        }else if (id == R.id.nav_termo_uso) {
 
-        } else if (id == R.id.nav_privacidade) {
-
+        }else if (id == R.id.nav_privacidade) {
 
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -183,15 +217,15 @@ public class MainActivity extends AppCompatActivity
 
             Log.d("testeCursoI M","Usuario Não Logado");
 
-            finish();
 
             startActivity(new Intent(this, LoginEmailActivity.class));
 
         }else{
             Log.d("testeCursoI M","Usuario Logado");
 
-            startActivity(new Intent(this, MainActivityLogado.class));
             finish();
+            startActivity(new Intent(this, MainActivityLogado.class));
+
         }
 
     }

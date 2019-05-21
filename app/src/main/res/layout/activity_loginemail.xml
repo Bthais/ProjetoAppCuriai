@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/main_header_selector"
     android:gravity="center"
     tools:context=".LoginEmailActivity">
 
@@ -54,6 +55,7 @@
         android:layout_gravity="center"
         android:gravity="center">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,17 +69,29 @@
             android:inputType="textEmailAddress"
             android:hint="Insira seu e-mail"/>
 
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/senha"/>
 
-        <EditText
-            android:id="@+id/editText_SenhaLogin"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Insira sua senha"/>
+            app:passwordToggleContentDescription="@string/repetir_senha"
+            app:passwordToggleEnabled="true">
+
+
+            <EditText
+                android:id="@+id/editText_SenhaLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Insira sua senha" />
+
+        </android.support.design.widget.TextInputLayout>
 
 
 

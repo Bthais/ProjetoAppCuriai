@@ -11,42 +11,58 @@
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
 
-        <item android:title=" ">
-
-        <menu>
-
-                <item android:id="@+id/nav_categorias"
-                    android:title="Categorias "
-                    android:icon="@drawable/ic_calendar_plus"
-                    app:showAsAction="always"/>
-                <item
-                    android:id="@+id/nav_relig"
-                    android:title="@string/avaliar" />
-                <item
-                    android:id="@+id/nav_cult"
-                    android:title="@string/ajuda" />
-
-                <item
-                    android:id="@+id/nav_palest"
-                    android:title="@string/termo_uso" />
-                <item
-                    android:id="@+id/nav_shows"
-                    android:title="@string/polit_priv" />
-                <item
-                    android:id="@+id/musc_bar"
-                    android:title="@string/sair" />
-
-            </menu>
-        </item>
-
         <item
             android:id="@+id/nav_explorar"
             android:icon="@drawable/ic_explorar"
             android:title="@string/explorar" />
 
+
+
+
+        <item android:title="@string/categorias"
+            android:id="@+id/nav_categorias"
+            android:icon="@drawable/list" />
+
+        <item
+            android:id="@+id/nav_festas"
+            android:title="@string/festas"
+            android:icon="@drawable/party"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_music"
+            android:title="@string/musica"
+            android:icon="@drawable/music_player"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_aprender"
+            android:title="@string/aprender"
+            android:icon="@drawable/party"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_negocios"
+            android:title="@string/negocios"
+            android:icon="@drawable/join"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_cultura"
+            android:title="@string/cultura"
+            android:icon="@drawable/theatre_masks"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_bemEstar"
+            android:title="@string/bemEstar"
+            android:icon="@drawable/party"
+            android:visible="false"/>
+
+
+
+
     </group>
 
-    <item android:title="Comunicação">
+
+    <item android:id="@+id/nav_com"
+        android:title="Comunicação">
         <menu>
             <item
                 android:id="@+id/nav_avaliacao"
@@ -65,7 +81,10 @@
                 android:id="@+id/nav_privacidade"
                 android:icon="@drawable/ic_politica_priv"
                 android:title="@string/polit_priv" />
-
+            <item
+                android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_sair"
+                android:title="@string/sair" />
 
         </menu>
     </item>
